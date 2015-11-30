@@ -19,3 +19,6 @@ log
 
 # Ignore Spring files.
 /spring/*.pid
+
+# Ignore simplecov files
+coverage

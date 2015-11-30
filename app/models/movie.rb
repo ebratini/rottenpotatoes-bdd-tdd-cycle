@@ -2,7 +2,8 @@ class Movie < ActiveRecord::Base
   class Movie::NoDirectorInfoFound < StandardError ; end
     
   def self.all_ratings
-    %w(G PG PG-13 NC-17 R)
+    # %w(G PG PG-13 NC-17 R)
+    Movie.uniq.order(:rating).pluck(:rating)
   end
   
   def self.find_by_same_director(id)

@@ -1,9 +1,5 @@
 class MoviesController < ApplicationController
   
-  def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date, :director)
-  end
-
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
@@ -69,5 +65,10 @@ class MoviesController < ApplicationController
       flash.keep[:notice] = "'#{ movie.title }' has no director info"
       redirect_to root_url
     end
+  end
+  
+  private
+  def movie_params
+    params.require(:movie).permit(:title, :rating, :description, :release_date, :director)
   end
 end

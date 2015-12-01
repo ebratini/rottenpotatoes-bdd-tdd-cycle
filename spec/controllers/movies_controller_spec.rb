@@ -34,23 +34,28 @@ describe MoviesController do
       end
     end
   end
-  describe 'movies sort/filter test' do
-    it 'should sort by title' do
-      get :index, sort: 'title'
+  describe 'movies sort/filter feature test' do
+    it 'should redirect sort by title' do
+      get :index, sort: :title
       expect(response).to have_http_status(302)
-      # expect(response).to be_success
-      # expect(response).to redirect_to movies_path(sort: @sort, ratings: @ratings)
+      expect(response).to redirect_to movies_path(sort: :title, ratings: session[:ratings])
     end
-    it 'should sort by release_date' do
-      get :index, sort: 'release_date'
+    it 'should redirect sort by release_date' do
+      get :index, sort: :release_date
       expect(response).to have_http_status(302)
-      # expect(response).to be_success
-      # expect(response).to redirect_to movies_path(sort: @sort, ratings: @ratings)
+      expect(response).to redirect_to movies_path(sort: :release_date, ratings: session[:ratings])
     end
-    it 'should filter movies to R rating' do
-      get :index, ratings: @ratings
-      expect(response).to be_success
-      # expect(response).to redirect_to movies_path(ratings: @ratings)
+    it 'should redirect filter movies to R rating' do
+      get :index, ratings: 'ratings_R'
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to movies_path(sort: session[:sort], ratings: 'ratings_R')
+    end
+    it 'should render movies list with sorting/filtering applied' do
+      _sort = session[:sort] # = :title
+      _ratings = session[:ratings] # = 'ratings_R'
+      get :index, sort: _sort, ratings: _ratings
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:index)
     end
   end
   describe 'movies controller tests' do

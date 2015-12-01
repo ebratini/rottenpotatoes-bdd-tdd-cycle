@@ -25,6 +25,7 @@ Scenario: find movie with same director
   Then  I should be on the Similar Movies page for "Star Wars"
   And   I should see "THX-1138"
   But   I should not see "Blade Runner"
+  And   I should not see "Star Wars"
  
 Scenario: can't find similar movies if we don't know director (sad path)
   Given I am on the details page for "Alien"

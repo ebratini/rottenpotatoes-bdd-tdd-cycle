@@ -17,6 +17,10 @@ describe Movie do
         expect(nolan_movies).to include @inception
         expect(depalma_movies).to include @carrie
       end
+      it 'should not include target movie in search results' do
+        depalma_movies = Movie.find_by_same_director(@scarface.id)
+        expect(depalma_movies).not_to include @scarface
+      end
       it 'should not find movies by different directors' do
         depalma_movies = Movie.find_by_same_director(@scarface.id)
         expect(depalma_movies).not_to include @memento
@@ -31,10 +35,14 @@ describe Movie do
     end
   end
   describe 'movie model tests' do
-    it 'should include most of ratings' do
-      some_ratings = %w(G PG PG-13 NC-17 R)
-      intersect = Movie.all_ratings & some_ratings
-      expect(intersect.any?).to eq true
+    # it 'should include most of ratings' do
+    #   some_ratings = %w(G PG PG-13 NC-17 R)
+    #   intersect = Movie.all_ratings & some_ratings
+    #   expect(intersect.any?).to be true
+    # end
+    it 'get list of movie ratings' do
+      ratings = %w(G PG PG-13 NC-17 R)
+      expect(Movie.all_ratings).to include(*ratings)
     end
   end
 end

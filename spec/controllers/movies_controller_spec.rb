@@ -30,7 +30,7 @@ describe MoviesController do
       it 'should redirect to home page when no director info found' do
         primer = movies(:primer)
         get :similar_director, id: primer.id
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(movies_path)
       end
     end
   end

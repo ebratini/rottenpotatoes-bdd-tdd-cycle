@@ -63,7 +63,7 @@ class MoviesController < ApplicationController
     rescue Movie::NoDirectorInfoFound
       movie = Movie.find(params[:id])
       flash.keep[:notice] = "'#{ movie.title }' has no director info"
-      redirect_to root_url
+      redirect_to movies_path
     end
   end
   

@@ -16,12 +16,14 @@ describe MoviesController do
       end
       it 'should select the Similar Movies template for rendering' do
         # Movie.stub(:find_by_same_director).and_return(@fake_results)
-        allow(Movie).to receive(:find_by_same_director).and_return(@fake_results)
+        # allow(Movie).to receive(:find_by_same_director).and_return(@fake_results)
+        expect(Movie).to receive(:find_by_same_director).and_return(@fake_results)
         get :similar_director, id: @fake_movie.id
         expect(response).to render_template(:similar_director)
       end
       it 'should make the search results available to that template' do
-        allow(Movie).to receive(:find_by_same_director).and_return(@fake_results)
+        # allow(Movie).to receive(:find_by_same_director).and_return(@fake_results)
+        expect(Movie).to receive(:find_by_same_director).and_return(@fake_results)
         get :similar_director, id: @fake_movie.id
         expect(assigns(:movies)).to eq @fake_results
       end
